@@ -1,0 +1,116 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = project.mod_version
+group = 'com.epicfightphystweaks'
+
+base {
+    archivesName = 'epicfight-x-phys-tweaks'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'epicfightphystweaks'
+
+            mods {
+                epicfightphystweaks {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'epicfightphystweaks'
+
+            mods {
+                epicfightphystweaks {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "epicfightphystweaks.refmap.json"
+    config "epicfightphystweaks.mixins.json"
+}
+
+repositories {
+    maven {
+        name = "Curios maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        url 'https://maven.blamejared.com'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+    
+    // Epic Fight dependency - Add the Epic Fight jar to the 'libs' folder
+    // or have it installed in your development environment
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    
+    // Mixin
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: '1.20.1',
+            minecraft_version_range: '[1.20.1,1.21)',
+            forge_version: '47.2.0',
+            forge_version_range: '[47,)',
+            loader_version_range: '[47,)',
+            mod_id: 'epicfightphystweaks',
+            mod_name: 'EpicFight x Physics Tweaks',
+            mod_license: 'MIT',
+            mod_version: version,
+            mod_authors: 'YourName',
+            mod_description: 'Configurable ragdoll physics compatibility for Epic Fight'
+    ]
+    
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
