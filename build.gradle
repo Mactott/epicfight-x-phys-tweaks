@@ -53,12 +53,16 @@ mixin {
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = "Curios maven"
         url = "https://maven.theillusivec4.top/"
     }
     maven {
         url 'https://maven.blamejared.com'
+    }
+    maven {
+        url = uri("https://cursemaven.com")
     }
     flatDir {
         dirs 'libs'
@@ -68,9 +72,8 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
     
-    // Epic Fight dependency - Add the Epic Fight jar to the 'libs' folder
-    // or have it installed in your development environment
-    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    // Epic Fight mod from CurseMaven (format: curse.maven:slug-projectid:fileid)
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:${epicfight_file_id}")
     
     // Mixin
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
