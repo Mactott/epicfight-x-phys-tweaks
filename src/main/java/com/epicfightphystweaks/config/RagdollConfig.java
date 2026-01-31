@@ -43,7 +43,7 @@ public class RagdollConfig {
         RAGDOLL_WHITELIST = BUILDER
                 .comment("Entity IDs to enable ragdolls for (when list_mode is WHITELIST)",
                          "Examples: minecraft:zombie, minecraft:skeleton, minecraft:creeper")
-                .defineListAllowEmpty(Arrays.asList("whitelist"), 
+                .defineListAllowEmpty(List.of("whitelist"),
                     () -> Arrays.asList(
                         "minecraft:zombie",
                         "minecraft:skeleton",
@@ -56,7 +56,7 @@ public class RagdollConfig {
         RAGDOLL_BLACKLIST = BUILDER
                 .comment("Entity IDs to disable ragdolls for (when list_mode is BLACKLIST)",
                          "Examples: minecraft:ender_dragon, minecraft:wither")
-                .defineListAllowEmpty(Arrays.asList("blacklist"),
+                .defineListAllowEmpty(List.of("blacklist"),
                     () -> Arrays.asList(
                         "minecraft:ender_dragon",
                         "minecraft:wither"
