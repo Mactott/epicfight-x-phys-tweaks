@@ -15,10 +15,10 @@ public class EpicFightPhysTweaks {
     public static final String MODID = "epicfightphystweaks";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public EpicFightPhysTweaks() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public EpicFightPhysTweaks(FMLJavaModLoadingContext context) {
+        IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::commonSetup);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, RagdollConfig.SPEC);
+        context.registerConfig(ModConfig.Type.CLIENT, RagdollConfig.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

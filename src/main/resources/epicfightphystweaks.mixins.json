@@ -7,11 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "MixinLivingEntityRagdoll",
-    "MixinLivingEntityRendererRagdoll",
-    "MixinRenderEngineRagdoll"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "MixinHealthBar",
+    "MixinLivingEntity"
+  ]
 }

@@ -17,7 +17,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: 'official', version: '1.20.1'
-    
+
     runs {
         client {
             workingDirectory project.file('run')
@@ -55,13 +55,6 @@ mixin {
 repositories {
     mavenCentral()
     maven {
-        name = "Curios maven"
-        url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        url 'https://maven.blamejared.com'
-    }
-    maven {
         url = uri("https://cursemaven.com")
     }
     flatDir {
@@ -70,30 +63,29 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
-    
-    // Epic Fight mod from CurseMaven (format: curse.maven:slug-projectid:fileid)
-    implementation fg.deobf("curse.maven:epic-fight-mod-405076:${epicfight_file_id}")
-    
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:7476040")
+    implementation fg.deobf("curse.maven:physics-mod-442735:7496773")
     // Mixin
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
-            minecraft_version: '1.20.1',
-            minecraft_version_range: '[1.20.1,1.21)',
-            forge_version: '47.2.0',
-            forge_version_range: '[47,)',
-            loader_version_range: '[47,)',
-            mod_id: 'epicfightphystweaks',
-            mod_name: 'EpicFight x Physics Tweaks',
+            minecraft_version: minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version,
+            forge_version_range: forge_version_range,
+            loader_version_range: loader_version_range,
+            mod_id: mod_id,
+            mod_name: mod_name,
             mod_license: 'MIT',
             mod_version: version,
-            mod_authors: 'YourName',
-            mod_description: 'Configurable ragdoll physics compatibility for Epic Fight'
+            mod_authors: mod_authors,
+            mod_description: mod_description,
     ]
-    
+
     inputs.properties replaceProperties
 
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {

@@ -14,18 +14,25 @@ authors="${mod_authors}"
     mandatory=true
     versionRange="${forge_version_range}"
     ordering="NONE"
-    side="CLIENT"
+    side="BOTH"
 
 [[dependencies.epicfightphystweaks]]
     modId="minecraft"
     mandatory=true
     versionRange="${minecraft_version_range}"
     ordering="NONE"
+    side="BOTH"
+
+[[dependencies.epicfightphystweaks]]
+    modId="physicsmod"
+    mandatory=true
+    versionRange="[3.0.0,)"
+    ordering="BEFORE"
     side="CLIENT"
 
 [[dependencies.epicfightphystweaks]]
     modId="epicfight"
     mandatory=true
     versionRange="[20.0.0,)"
-    ordering="AFTER"
-    side="CLIENT"
+    ordering="NONE"
+    side="BOTH"
